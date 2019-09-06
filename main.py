@@ -51,7 +51,7 @@ with open(csvpath, newline='') as csvfile:
     print(f"Greatest Increase in Profits : {MAX_Month} (${MAX_profit})")
     print(f"Greatest Decrease in Profits : {MIN_Month} (${MIN_profit})")
    
-Results = open("Aalysis.txt", "w+")
+Results = open("Analysis.txt", "w+")
 Results.write(
     "Fanaicial Analysis" "\n"
     "----------------------------------------------------""\n"
