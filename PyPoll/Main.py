@@ -10,7 +10,7 @@ def Election_Calculator():
     with open(file, newline='') as csv_file:
         csvreader = csv.reader(csv_file, delimiter = ",")
         #skipping the header
-        csvheader = next(csvreader)
+        csvheader = next(csv_file)
 
         # defining an empty list to store my candidates in
         candidates = []
