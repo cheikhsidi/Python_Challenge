@@ -34,19 +34,34 @@ def Election_Calculator():
         print(f"Total Votes : {Total_Votes}")
         print("---------------------------")
 
+        # Creating text file (Analysis.txt) and writing the results to it
+        with open("Analysis.txt", "w+") as Results:
+            Results.write(
+                "Election Results" "\n"
+                "---------------------------""\n"
+                f"Total Votes : {Total_Votes}""\n"
+                "---------------------------""\n")
+                    
         # Calculating the pourcentage of each candidate and appending the value to the pourcent dictionary
-        for k,v in candid_votes.items():
-            value = v
-            v = (v/Total_Votes)*100
-            #formatting my pourcentages to 3 point decimal
-            v = float("{0:.3f}".format(v))
-            candid_pourcent[k] = v
-            print(f"{k} : %{v} ({value})")
+            for k,v in candid_votes.items():
+                value = v
+                v = (v/Total_Votes)*100
+                #formatting my pourcentages to 3 point decimal
+                v = float("{0:.3f}".format(v))
+                candid_pourcent[k] = v
+                print(f"{k} : %{v} ({value})")
+                Results.write(f"{k} : %{v} ({value})""\n")
 
-        # Retreiving the winner using the max function
-        winner = max(candid_pourcent, key=candid_pourcent.get)
-        print("---------------------------")
-        print (f"winner : {winner}")
-        print("---------------------------")
+
+            # Retreiving the winner using the max function
+            winner = max(candid_pourcent, key=candid_pourcent.get)
+            print("---------------------------")
+            print (f"winner : {winner}")
+            print("---------------------------")
+            Results.write(
+                "---------------------------""\n"
+                f"winner : {winner}""\n"
+                "---------------------------")
+        
 
 Election_Calculator()
