@@ -7,7 +7,7 @@ def Election_Calculator():
     file = os.path.join("Resources", "election_data.csv")
 
     #Opening the file as an object
-    with open(file, "r") as csv_file:
+    with open(file, newline='') as csv_file:
         csvreader = csv.reader(csv_file, delimiter = ",")
         #skipping the header
         csvheader = next(csvreader)
@@ -24,9 +24,9 @@ def Election_Calculator():
         for row in csvreader:
             candidates.append(row[2])
             #Creating a dictionary of candidates and total votes
-            candid_votes = dict(zip(candidates[:10], [0] * len(candidates[:10])))
+            candid_votes = dict(zip(candidates, [0] * len(candidates)))
             # looping through the list of candidates to count each candidate
-            for v in candidates[:10]:
+            for v in candidates:
                 candid_votes[v] += 1
 
         #Calculating Total votes 
