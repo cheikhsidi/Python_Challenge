@@ -20,14 +20,15 @@ def Election_Calculator():
         print("Election Results")
         print ("---------------------------")
 
+      
         # Looping through the candidates column to retrieve all candidates
         for row in csvreader:
             candidates.append(row[2])
-            #Creating a dictionary of candidates and total votes
-            candid_votes = dict(zip(candidates, [0] * len(candidates)))
-            # looping through the list of candidates to count each candidate
-            for v in candidates:
-                candid_votes[v] += 1
+        #Creating a dictionary of candidates and total votes
+        candid_votes = dict(zip(candidates, [0] * len(candidates)))
+        # looping through the list of candidates to count each candidate
+        for v in candidates:
+            candid_votes[v] += 1
 
         #Calculating Total votes 
         Total_Votes = len(candidates)
