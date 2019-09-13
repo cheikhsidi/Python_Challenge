@@ -2,64 +2,65 @@
 import os
 import csv
 
-#Creating a path to the CSV file
+# Creating a path to the CSV file
 csvpath = os.path.join('Resources', 'budget_data.csv')
 
-#Opening the CSV file as an object
+# Opening the CSV file as an object
 with open(csvpath, newline='') as csvfile:
 
     # CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
     
-    #printin the header of my results 
+    # printin the header of my results 
     print("Fanaicial Analysis")
     print("----------------------------------------------------")
 
     # Read the header row first (skip this step if there is now header)
     csv_header = next(csvreader)
-    # Creating empty dictionary where i am going to add my rows
+    # Creating empty dictionary and lists where i am going to add my rows data
     data = {}
-    
-    # Read each row of data after the header and creating dictionary out of it
+    profits = []
+    months = []
+    changes = []
+    #Initializing my counter
+    i = 1 
+   # looping through my table rows and appending my rows into lists
     for row in csvreader:
-        data.update({row[0]: int(row[1])})
-    #Calculating the SUM and Lenght of my dictionary values
-    Total = sum(data.values())
-    count = len(data)
-    #Calculating the average changes 
-    Avg_Change = round(((list(data.values())[-1] - list(data.values())[0])/count), 3)
-    #Getting the Maximum value in my Values
-    MAX_profit = (max(data.values()))
-    #Finding the correspocding month of my maximum value
-    MAX_Months = [key for key, value in data.items() if value == MAX_profit]
+        profits.append(int(row[1]))
+        months.append(row[0])
+    # looping through the profil and loss list to claculate the change    
+    for i in range(1,len(profits)): 
+        changes.append(profits[i] - profits[i-1])
+   # Calculating the the average of change and the max and min changes
+    Avg_Change = round((sum(changes))/len(changes), 2)
+    MAX_profit = (max(changes))
+    MIN_profit = (min(changes))
+    Total_Months = len(months)
+    Total_Profit = (sum(profits))\
+    # mapping my months to my changes(dictionary) to extract the months of max and min changes
+    data = dict(zip(months[1:], changes))
+    
+    # looping through my dictionary to extract the months
+    for key, value in data.items():
+        if value == MAX_profit:
+             MAX_Month = key
+        elif value == MIN_profit:
+            MIN_Month = key
 
-    for key in MAX_Months:
-        MAX_Month = key
-    #Getting the Minimum value in my Values
-    MIN_profit = (min(data.values()))
-    #Finding the correspocding month of my minimum value
-    MIN_Months = [key for key, value in data.items() if value == MIN_profit]
-
-    for key in MIN_Months:
-        MIN_Month = key
     # Printing my Analysis Results
-    print(f"Total Months : {count}")
-    print(f"Total : ${Total}")
+    print(f"Total Months : {Total_Months}")
+    print(f"Total : ${Total_Profit}")
     print(f"Average  Change : ${Avg_Change}")
     print(f"Greatest Increase in Profits : {MAX_Month} (${MAX_profit})")
     print(f"Greatest Decrease in Profits : {MIN_Month} (${MIN_profit})")
 
-# Writing the results to a text file  
+# Writing the results to a text file "Analysis.txt"
 with open("Analysis.txt", "w+") as Results:
     Results.write(
-        "Fanaicial Analysis" "\n"
+        "Fanaicial Analysis""\n"
         "----------------------------------------------------""\n"
-        f"Total Months : {count}""\n"
-        f"Total : ${Total}""\n"
+        f"Total Months : {Total_Months}""\n"
+        f"Total : ${Total_Profit}""\n"
         f"Average Change : ${Avg_Change}""\n"
         f"Greatest Increase in Profits : {MAX_Month} (${MAX_profit})""\n"
         f"Greatest Decrease in Profits : {MIN_Month} (${MIN_profit})")
-
-   
-   
-

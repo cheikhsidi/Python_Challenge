@@ -103,6 +103,7 @@ def Data_Conversion():
         data = [emp_id, firstName, lastName, formated_DOB, formatted_ssn, formatted_State]
         new_emplyee = dict(zip(new_headers, data))
         df = pd.DataFrame(new_emplyee)
-        print (df.dtypes)
+        # Writing the new formatted table to a csv file (formatted.csv)
+        df.to_csv("formatted.csv", index=False, header=True)
      
 Data_Conversion()
